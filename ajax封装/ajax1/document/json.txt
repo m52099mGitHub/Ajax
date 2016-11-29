@@ -1,0 +1,11 @@
+/*[
+	{"a":1,"b":5},
+	{"a":7,"b":9}
+
+]*/
+
+[
+	{"user":"blue","password":"123456"},
+	{"user":"red","password":"535353"},
+	{"user":"green","password":"454545"}
+]

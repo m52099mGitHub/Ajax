@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="scripts/ajax.js"></script>
+</head>
+<body>
+	<input id="btn" type="button" value="读取文件">
+</body>
+<script>
+	window.onload=function(){
+		var oBtn=document.getElementById("btn");
+		oBtn.onclick=function(){
+			//阻止缓存  : ?t='+new Date().getTime() 让URL每次都不一样
+			ajax('document/arr.txt?t='+new Date().getTime(),function(str){
+				alert(str);
+			},function(){
+				alert("失败!");
+			})
+		}
+	}
+</script>
+</html>

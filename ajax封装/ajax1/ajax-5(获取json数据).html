@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="scripts/ajax.js"></script>
+</head>
+<body>
+	<input id="btn" type="button" value="读取文件">
+	<ul id="ul1">
+		
+	</ul>
+</body>
+<script>
+	window.onload=function(){
+		var oBtn=document.getElementById("btn");
+		var oUl=document.getElementById("ul1");
+		oBtn.onclick=function(){
+			//阻止缓存  : ?t='+new Date().getTime() 让URL每次都不一样
+			ajax('document/json.txt?t='+new Date().getTime(),function(str){
+				var arr=eval(str);//eval解析数据
+				for(var i=0;i<arr.length;i++){
+					var oLi=document.getElementById("li");
+					oLi.innerHTML='用户名: <strong>'+arr[i].user+'</strong> 密码: <span>'+arr[i].pass+'</span>';
+					oUl.appendChild(oLi);
+				}
+			},function(){
+				alert("失败!");
+			})
+		}
+	}
+</script>
+</html>

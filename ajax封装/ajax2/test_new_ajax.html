@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="scripts/new_ajax.js"></script>
+	<script>
+		window.onload=function(){
+			var oBtn=document.getElementById("btn");
+			oBtn.onclick=function(){
+				ajax('document/text1.txt',function(str){
+					alert(str);
+				});
+			};
+		};
+	</script>
+</head>
+<body>
+	<input id="btn" type="button" value="获取数据">
+</body>
+</html>
