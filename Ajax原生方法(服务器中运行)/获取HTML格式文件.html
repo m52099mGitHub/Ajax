@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>demo4</title>
+    <script src="files/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+<!--JavaScript原生代码方式-->
+<script>
+    window.onload=function(){
+        var aNodes=document.getElementsByTagName("a");
+        for(var i=0;i<aNodes.length;i++){
+            aNodes[i].onclick=function(){
+                var request=new XMLHttpRequest();
+                var method="GET";
+                var url=this.href;
+                request.open(method,url);
+                request.send(null);
+                request.onreadystatechange=function(){
+                    if(request.readyState==4){
+                        if(request.status==200||request.status==304){
+                            document.getElementById("details").innerHTML=request.responseText;
+                        }
+                    }
+                }
+                return false;//清除a标签的默认行为(跳转)
+            }
+        }
+    }
+</script>
+
+<!--jQuery方法-->
+<script>
+   /* $(function(){
+        $("a").click(function(){
+            //使用load方法处理Ajax
+            var url=this.href;
+            var args={"time":new Date()};//清除缓存
+            $("#details").load(url,args);
+            return false;//清除a标签的默认行为(跳转)
+        })
+    })*/
+</script>
+
+<h1>People</h1>
+<ul>
+    <li><a href="files/andy.html">Andy</a></li>
+    <li><a href="files/richard.html">Richard</a></li>
+    <li><a href="files/jeremy.html">Jeremy</a></li>
+</ul>
+
+<p id="details"></p>
+</body>
+</html>

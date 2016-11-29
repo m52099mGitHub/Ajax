@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取 json格式数据</title>
+</head>
+<body>
+<!--JavaScript原生代码方式-->
+<script>
+    /*定义json文件*/
+    /*var jsonObject={
+        "name":"atguigu",
+        "age":12,
+        "address":{
+            "city":"beijing","school":"尚硅谷"},
+        "teaching":function(){
+                alert("JavaEE,Android....");
+        }
+    };
+
+//    alert(jsonObject.name);
+//    alert(jsonObject.address.city);
+//    jsonObject.teaching();
+
+
+
+    var jsonStr="{'name':'atguigu'}";
+//    alert(jsonStr.name);
+
+    //把一个字符串转换为json对象
+    //使用eval()方法
+    var testStr="alert('hello eval')";
+    alert(testStr);
+    //eval可以把一个字符串转换为本地的JS代码来执行
+    eval(testStr);
+    //把json字符串转为json对象
+    var testObject=eval("("+jsonStr+")");
+    alert(testObject.name);*/
+</script>
+<script>
+    window.onload=function(){
+        var aNodes=document.getElementsByTagName("a");
+        for(var i=0;i<aNodes.length;i++){
+            aNodes[i].onclick=function(){
+                var request=new XMLHttpRequest();
+                var method="GET";
+                var url=this.href;
+                request.open(method,url);
+                request.send(null);
+                request.onreadystatechange=function(){
+                    if(request.readyState==4){
+                        if(request.status==200||request.status==304){
+                            //1.结果为json格式,所以需要使用responseText来获取
+                            var result=request.responseText;
+                            var object=eval("("+result+")");
+                            //2.结果不能直接使用,必须先创建节点,再把节点加入到#details中
+
+                            //目标格式为
+                            /*
+                             <h2><a href="mailto:andy@163.com">Andy Budd</a></h2>
+                             <a href="http://andybudd.com">http://andybudd.com</a>
+                             */
+
+                            var name=object.person.name;
+                            var website=object.person.website;
+                            var email=object.person.email;
+//                            alert(name);
+//                            alert(website);
+//                            alert(email);
+
+                            var aNode=document.createElement("a");//创建a节点
+                            aNode.appendChild(document.createTextNode(name));
+                            aNode.href="mailto:"+email;
+
+                            var h2Node=document.createElement("h2");
+                            h2Node.appendChild(aNode);
+
+                            var aNode2=document.createElement("a");//创建a节点
+                            aNode.appendChild(document.createTextNode(website));
+                            aNode.href=website;
+
+                            var detailsNode=document.getElementById("details");
+                            detailsNode.innerHTML="";
+                            detailsNode.appendChild(h2Node);
+                            detailsNode.appendChild(aNode2);
+                        }
+                    }
+                };
+                return false;//清除a标签的默认行为(跳转)
+            }
+        }
+    }
+</script>
+
+
+<h1>json格式的优点:</h1>
+<h2>1.作为一种数据传输格式,json与xml很相似,但是更加灵巧</h2>
+<h2>2.json不需要从服务器端发送含有特定内容类型的首部信息</h2>
+<h1>json格式的缺点:</h1>
+<h2>1.语法过于严谨,不易读</h2>
+<h2>2.eval()函数存在风险,eval()可以把字符串被js代码直接执行</h2>
+
+<h1>People</h1>
+<ul>
+    <li><a href="files/andy.js">Andy</a></li>
+    <li><a href="files/richard.js">Richard</a></li>
+    <li><a href="files/jeremy.js">Jeremy</a></li>
+</ul>
+
+<div id="details"></div>
+</body>
+</html>

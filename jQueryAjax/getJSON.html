@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getJson</title>
+    <script src="files/jquery.js" type="text/javascript"></script>
+</head>
+<body>
+
+<script>
+    /*$(function(){
+        $("a").click(function(){
+            var url=this.href;
+            var args={"time":new Date()};//清除缓存
+
+            //url:
+            //args:JSON格式的变量
+            //function:回调函数:当响应结束时,回调函数被触发,响应结果在data中,
+            $.getJSON(url,args,function(data){
+                var name=data.person.name;
+
+                var website=data.person.website;
+
+                var email=data.person.email;
+
+                $("#details").empty().append("<h2><a href='mailto:"+email+"'>"+name+"</a></h2>")
+                        .append("<a href='"+website+"'>"+website+"</a>");
+            });
+
+            return false;//清除a标签的默认行为(跳转)
+        })
+    })*/
+</script>
+
+<script>
+    $(function(){
+        $("a").click(function(){
+            var url=this.href;
+            var args={"time":new Date()};//清除缓存
+
+            //url:
+            //args:JSON格式的变量
+            //function:回调函数:当响应结束时,回调函数被触发,响应结果在data中,
+            $.get(url,args,function(data){//get方式获取json
+                var name=data.person.name;
+
+                var website=data.person.website;
+
+                var email=data.person.email;
+
+                $("#details").empty().append("<h2><a href='mailto:"+email+"'>"+name+"</a></h2>")
+                        .append("<a href='"+website+"'>"+website+"</a>");
+            },"JSON");//.......................................................get方式获取json要加"JSON"
+
+            return false;//清除a标签的默认行为(跳转)
+        })
+    })
+</script>
+
+
+<h1>json格式的优点:</h1>
+<h2>1.作为一种数据传输格式,json与xml很相似,但是更加灵巧</h2>
+<h2>2.json不需要从服务器端发送含有特定内容类型的首部信息</h2>
+<h1>json格式的缺点:</h1>
+<h2>1.语法过于严谨,不易读</h2>
+<h2>2.eval()函数存在风险,eval()可以把字符串被js代码直接执行</h2>
+
+<h1>People</h1>
+<ul>
+    <li><a href="files/andy.js">Andy</a></li>
+    <li><a href="files/richard.js">Richard</a></li>
+    <li><a href="files/jeremy.js">Jeremy</a></li>
+</ul>
+
+<div id="details"></div>
+</body>
+</html>
